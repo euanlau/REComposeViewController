@@ -40,7 +40,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.maxTextLength = 20;
         _cornerRadius = 10;
         _sheetView = [[REComposeSheetView alloc] initWithFrame:CGRectMake(0, 0, self.currentWidth - 8, 202)];
     }
@@ -53,15 +52,14 @@
     return (!UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) ? screen.bounds.size.width : screen.bounds.size.height;
 }
 
-- (void)viewDidLoad
+- (void)loadView
 {
-    [super viewDidLoad];
-    
+    [super loadView];
+
     _backgroundView = [[REComposeBackgroundView alloc] initWithFrame:self.view.bounds];
     _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _backgroundView.centerOffset = CGSizeMake(0, - self.view.frame.size.height / 2);
     _backgroundView.alpha = 0;
-    
     
     _containerView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 202)];
     _containerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -186,19 +184,19 @@
     if ([self shouldShowCounter])
     {
         CGFloat characterCountLeft, characterCountTop;
-        characterCountLeft = CGRectGetWidth(_sheetView.frame) - CGRectGetWidth(self.characterCountLabel.frame) - 12.0f;
-        characterCountTop = CGRectGetHeight(_sheetView.frame) - CGRectGetHeight(self.characterCountLabel.frame) - 8.0f;
+        CGSize size = CGSizeMake(80, 15);
+        characterCountLeft = CGRectGetWidth(_sheetView.frame) - size.width - 12.0f;
+        characterCountTop = CGRectGetHeight(_sheetView.frame) - size.height - 5.0f;
         
         if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
             if (UIInterfaceOrientationIsLandscape(interfaceOrientation)) {
-                characterCountTop -= 5.0f;
                 if (self.hasAttachment) {
                     characterCountLeft -= CGRectGetWidth(_sheetView.attachmentView.frame) - 15.0f;
                 }
             }
         }
         
-        self.characterCountLabel.frame = CGRectMake(characterCountLeft, characterCountTop, self.characterCountLabel.frame.size.width, self.characterCountLabel.frame.size.height);
+        self.characterCountLabel.frame = CGRectMake(characterCountLeft, characterCountTop, size.width, size.height);
     }
 }
 
@@ -231,11 +229,9 @@
 		aLabel.textAlignment = UITextAlignmentRight;
 		aLabel.autoresizesSubviews = YES;
 		aLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-//		self.counter = aLabel;
-//		[aLabel release];
-//		
-//		[self.view addSubview:counter];
-//		[self layoutCounter];
+        
+        self.characterCountLabel = aLabel;
+        [_sheetView addSubview:self.characterCountLabel];
 	}
 	
     if (![self shouldShowCounter]) {
@@ -245,6 +241,8 @@
     
     NSInteger available = [self charactersAvailable];
 
+    self.characterCountLabel.text = [NSString stringWithFormat:@"%d", available];
+    
     if (available >= 0) {
         self.characterCountLabel.textColor = [UIColor grayColor];
         _sheetView.navigationItem.rightBarButtonItem.enabled = [self ifNoTextDisableSendButton];
@@ -394,4 +392,11 @@
 	[self updateCharacterCount];
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (range.length < text.length)
+        return !self.maxTextLength || [self charactersAvailable] > 0;
+    else
+        return YES;
+}
 @end
