@@ -37,7 +37,7 @@ typedef void (^REComposeViewControllerCompletionHandler)(REComposeResult result)
 
 @protocol REComposeViewControllerDelegate;
 
-@interface REComposeViewController : UIViewController <REComposeSheetViewDelegate> {
+@interface REComposeViewController : UIViewController <REComposeSheetViewDelegate, UITextViewDelegate> {
     REComposeSheetView *_sheetView;
     REComposeBackgroundView *_backgroundView;
     UIView *_backView;
@@ -46,6 +46,11 @@ typedef void (^REComposeViewControllerCompletionHandler)(REComposeResult result)
     BOOL _hasAttachment;
     UIImage *_attachmentImage;
 }
+
+@property NSUInteger maxTextLength;
+@property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
+@property BOOL hasLink; //only if the link is not part of the text in a text view
+@property BOOL allowSendingEmptyMessage;
 
 - (UINavigationItem *)navigationItem;
 - (UINavigationBar *)navigationBar;
