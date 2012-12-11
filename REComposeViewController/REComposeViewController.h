@@ -44,24 +44,21 @@ typedef void (^REComposeViewControllerCompletionHandler)(REComposeResult result)
     UIView *_containerView;
     UIImageView *_paperclipView;
     BOOL _hasAttachment;
-    UIImage *_attachmentImage;
+    UIImage *_image;
 }
 
 @property NSUInteger maxTextLength;
+@property (nonatomic, retain) UIImage *image;//ready for showing up image, like ios5 twitter
 @property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
 @property BOOL hasLink; //only if the link is not part of the text in a text view
 @property BOOL allowSendingEmptyMessage;
+@property (nonatomic, retain) NSString *text;
 
 - (UINavigationItem *)navigationItem;
 - (UINavigationBar *)navigationBar;
-- (NSString *)text;
-- (void)setText:(NSString *)text;
 
 - (BOOL)hasAttachment;
 - (void)setHasAttachment:(BOOL)hasAttachment;
-
-- (UIImage *)attachmentImage;
-- (void)setAttachmentImage:(UIImage *)attachmentImage;
 
 @property (copy, nonatomic) REComposeViewControllerCompletionHandler completionHandler;
 @property (weak, nonatomic) id <REComposeViewControllerDelegate> delegate;

@@ -85,10 +85,10 @@
     [_containerView addSubview:_paperclipView];
     [_paperclipView setHidden:YES];
     
-    if (!_attachmentImage)
-        _attachmentImage = [UIImage imageNamed:@"REComposeViewController.bundle/URLAttachment"];
+    if (!_image)
+        _image = [UIImage imageNamed:@"REComposeViewController.bundle/URLAttachment"];
     
-    _sheetView.attachmentImageView.image = _attachmentImage;
+    _sheetView.attachmentImageView.image = _image;
     
     [self updateCharacterCount];
 }
@@ -289,15 +289,15 @@
     return _sheetView.navigationBar;
 }
 
-- (UIImage *)attachmentImage
+- (UIImage *)image
 {
-    return _attachmentImage;
+    return _image;
 }
 
-- (void)setAttachmentImage:(UIImage *)attachmentImage
+- (void)setImage:(UIImage *)image
 {
-    _attachmentImage = attachmentImage;
-    _sheetView.attachmentImageView.image = _attachmentImage;
+    _image = image;
+    _sheetView.attachmentImageView.image = _image;
 }
 
 - (BOOL)hasAttachment
