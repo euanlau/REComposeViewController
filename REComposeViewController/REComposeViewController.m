@@ -163,22 +163,22 @@
     _paperclipView.hidden = !_hasAttachment;
     _sheetView.attachmentView.hidden = !_hasAttachment;
     
-    [_sheetView.navigationBar sizeToFit];
+    [_sheetView.titleBar sizeToFit];
     
     CGRect attachmentViewFrame = _sheetView.attachmentView.frame;
     attachmentViewFrame.origin.x = _sheetView.frame.size.width - 84;
-    attachmentViewFrame.origin.y = _sheetView.navigationBar.frame.size.height + 10;
+    attachmentViewFrame.origin.y = _sheetView.titleBar.frame.size.height + 10;
     _sheetView.attachmentView.frame = attachmentViewFrame;
     
     CGRect textViewFrame = _sheetView.textView.frame;
     textViewFrame.size.width = !_hasAttachment ? _sheetView.frame.size.width : _sheetView.frame.size.width - 84;
     _sheetView.textView.scrollIndicatorInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, _hasAttachment ? -85 : 0);
-    textViewFrame.size.height = _sheetView.frame.size.height - _sheetView.navigationBar.frame.size.height - 3;
+    textViewFrame.size.height = _sheetView.frame.size.height - _sheetView.titleBar.frame.size.height - 3;
     _sheetView.textView.frame = textViewFrame;
     
     CGRect textViewContainerFrame = _sheetView.textViewContainer.frame;
-    textViewContainerFrame.origin.y = _sheetView.navigationBar.frame.size.height;
-    textViewContainerFrame.size.height = _sheetView.frame.size.height - _sheetView.navigationBar.frame.size.height;
+    textViewContainerFrame.origin.y = _sheetView.titleBar.frame.size.height;
+    textViewContainerFrame.size.height = _sheetView.frame.size.height - _sheetView.titleBar.frame.size.height;
     _sheetView.textViewContainer.frame = textViewContainerFrame;
     
     if ([self shouldShowCounter])
@@ -235,7 +235,7 @@
 	}
 	
     if (![self shouldShowCounter]) {
-        _sheetView.navigationItem.rightBarButtonItem.enabled = [self ifNoTextDisableSendButton];
+        _sheetView.postButton.enabled = [self ifNoTextDisableSendButton];
         return;
     }
     
@@ -245,11 +245,11 @@
     
     if (available >= 0) {
         self.characterCountLabel.textColor = [UIColor grayColor];
-        _sheetView.navigationItem.rightBarButtonItem.enabled = [self ifNoTextDisableSendButton];
+        _sheetView.postButton.enabled = [self ifNoTextDisableSendButton];
     }
     else {
         self.characterCountLabel.textColor = [UIColor colorWithRed:0.64f green:0.32f blue:0.32f alpha:1.0f];
-        _sheetView.navigationItem.rightBarButtonItem.enabled = NO;
+        _sheetView.postButton.enabled = NO;
     }
 }
 
@@ -279,14 +279,20 @@
 #pragma mark -
 #pragma mark Accessors
 
-- (UINavigationItem *)navigationItem
+
+- (UIToolbar *)titleBar
 {
-    return _sheetView.navigationItem;
+    return _sheetView.titleBar;
 }
 
-- (UINavigationBar *)navigationBar
+- (UIBarButtonItem *)postButton
 {
-    return _sheetView.navigationBar;
+    return _sheetView.postButton;
+}
+
+- (UIBarButtonItem *)cancelButton
+{
+    return _sheetView.cancelButton;
 }
 
 - (UIImage *)image

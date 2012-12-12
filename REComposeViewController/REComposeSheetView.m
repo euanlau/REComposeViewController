@@ -34,21 +34,27 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         
-        _navigationBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
-        _navigationBar.autoresizingMask = UIViewAutoresizingFlexibleWidth
+        _titleBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 44)];
+        _titleBar.autoresizingMask = UIViewAutoresizingFlexibleWidth
         | UIViewAutoresizingFlexibleBottomMargin
         | UIViewAutoresizingFlexibleRightMargin;
         
-        _navigationItem = [[UINavigationItem alloc] initWithTitle:@""];
-        _navigationBar.items = @[_navigationItem];
-        
+      
+        UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithTitle:@"Test" style:UIBarButtonItemStylePlain target:nil action:nil];
+      
         UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
-        _navigationItem.leftBarButtonItem = cancelButtonItem;
-        
+      
+      _cancelButton = cancelButtonItem;
+      
         UIBarButtonItem *postButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Post", @"Post") style:UIBarButtonItemStyleBordered target:self action:@selector(postButtonPressed)];
-        _navigationItem.rightBarButtonItem = postButtonItem;
-        
-        
+      
+      _postButton = postButtonItem;
+      
+      UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+      
+      _titleBar.items = @[cancelButtonItem, spaceItem, titleItem, spaceItem, postButtonItem];
+
+      
         _textViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 44, frame.size.width, frame.size.height - 44)];
         _textViewContainer.clipsToBounds = YES;
         _textViewContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -74,17 +80,9 @@
         [_attachmentView addSubview:_attachmentContainerView];
         _attachmentView.hidden = YES;
     
-        [self addSubview:_navigationBar];
+        [self addSubview:_titleBar];
     }
     return self;
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    if (_delegate) {
-        _navigationItem.title = _delegate.title;
-    }
 }
 
 - (void)cancelButtonPressed

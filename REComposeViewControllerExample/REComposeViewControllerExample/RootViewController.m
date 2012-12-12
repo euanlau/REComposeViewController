@@ -60,7 +60,7 @@
     REComposeViewController *composeViewController = [[REComposeViewController alloc] init];
     composeViewController.title = @"Tumblr";
     composeViewController.hasAttachment = YES;
-    composeViewController.attachmentImage = [UIImage imageNamed:@"Flower.jpg"];
+    composeViewController.image = [UIImage imageNamed:@"Flower.jpg"];
     composeViewController.delegate = self;
     [self presentViewController:composeViewController animated:YES completion:nil];
 }
@@ -75,9 +75,9 @@
     
     // UIApperance setup
     
-    [composeViewController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bg"] forBarMetrics:UIBarMetricsDefault];
-    composeViewController.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
-    composeViewController.navigationItem.rightBarButtonItem.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
+    [composeViewController.titleBar setBackgroundImage:[UIImage imageNamed:@"bg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+    composeViewController.cancelButton.tintColor = [UIColor colorWithRed:60/255.0 green:165/255.0 blue:194/255.0 alpha:1];
+    composeViewController.postButton.tintColor = [UIColor colorWithRed:29/255.0 green:118/255.0 blue:143/255.0 alpha:1];
     
     // Alternative use with REComposeViewControllerCompletionHandler
     composeViewController.completionHandler = ^(REComposeResult result) {

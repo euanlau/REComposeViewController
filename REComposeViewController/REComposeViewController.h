@@ -54,8 +54,10 @@ typedef void (^REComposeViewControllerCompletionHandler)(REComposeResult result)
 @property BOOL allowSendingEmptyMessage;
 @property (nonatomic, retain) NSString *text;
 
-- (UINavigationItem *)navigationItem;
-- (UINavigationBar *)navigationBar;
+- (UIToolbar *)titleBar;
+
+@property (nonatomic, strong, readonly) UIBarButtonItem *cancelButton;
+@property (nonatomic, strong, readonly) UIBarButtonItem *postButton;
 
 - (BOOL)hasAttachment;
 - (void)setHasAttachment:(BOOL)hasAttachment;
