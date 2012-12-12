@@ -58,6 +58,7 @@ typedef void (^REComposeViewControllerCompletionHandler)(REComposeResult result)
 
 @property (nonatomic, strong, readonly) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong, readonly) UIBarButtonItem *postButton;
+@property (nonatomic, strong, readonly) UIBarButtonItem *titleItem;
 
 - (BOOL)hasAttachment;
 - (void)setHasAttachment:(BOOL)hasAttachment;

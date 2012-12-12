@@ -40,6 +40,7 @@
 @property (readonly, nonatomic) DEComposeTextView *textView;
 @property (nonatomic, strong, readonly) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong, readonly) UIBarButtonItem *postButton;
+@property (nonatomic, strong, readonly) UIBarButtonItem *titleItem;
 
 @end
 

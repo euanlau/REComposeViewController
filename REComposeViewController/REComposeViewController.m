@@ -93,6 +93,12 @@
     [self updateCharacterCount];
 }
 
+- (void)setTitle:(NSString *)title
+{
+    [super setTitle:title];
+    self.titleItem.title = title;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -293,6 +299,11 @@
 - (UIBarButtonItem *)cancelButton
 {
     return _sheetView.cancelButton;
+}
+
+- (UIBarButtonItem *)titleItem
+{
+    return _sheetView.titleItem;
 }
 
 - (UIImage *)image

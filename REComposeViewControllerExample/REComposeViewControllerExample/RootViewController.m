@@ -71,8 +71,8 @@
     composeViewController.hasAttachment = YES;
     UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"foursquare-logo"]];
     titleImageView.frame = CGRectMake(0, 0, 110, 30);
-    composeViewController.navigationItem.titleView = titleImageView;
-    
+  composeViewController.titleItem.customView = titleImageView;
+  
     // UIApperance setup
     
     [composeViewController.titleBar setBackgroundImage:[UIImage imageNamed:@"bg"] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];

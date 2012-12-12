@@ -42,6 +42,8 @@
       
         UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithTitle:@"Test" style:UIBarButtonItemStylePlain target:nil action:nil];
       
+      _titleItem = titleItem;
+      
         UIBarButtonItem *cancelButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"Cancel") style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
       
       _cancelButton = cancelButtonItem;
